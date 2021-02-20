@@ -1,0 +1,19 @@
+{
+  "name": "react-movies",
+  "version": "1.0.0",
+  "description": "react application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anastminsk/react-movies.git"
+  },
+  "author": "Nastassia Tanyhina",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anastminsk/react-movies/issues"
+  },
+  "homepage": "https://github.com/anastminsk/react-movies#readme"
+}
