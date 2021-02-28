@@ -1,20 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import Header from './components/Header/index';
 
-const Root = styled.div`
-	text-align: center;
-`;
-
-const HelloReact = styled.h1`
-	color: #f65261;
-	background-color: #232323;
+const AppWrapper = styled.div`
+	max-width: 1024px;
+	margin: 0 auto;
 `;
 
 function App() {
 	return (
-		<Root>
-			<HelloReact>Hello React!</HelloReact>
-		</Root>
+		<AppWrapper>
+			<Header />
+		</AppWrapper>
 	);
 }
 
