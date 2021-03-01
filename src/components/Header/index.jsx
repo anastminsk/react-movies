@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import Logo from '../Logo/index';
+import Logo from '../Logo';
 
 const HeaderTop = styled.div`
 	display: flex;
