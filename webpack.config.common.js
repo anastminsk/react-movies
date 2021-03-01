@@ -21,15 +21,8 @@ module.exports = {
 				exclude: /node_modules/,
 			},
 			{
-				test: /\.(png|jpe?g|wav|mp3|otf)$/,
-				use: [
-					{
-						loader: 'file-loader',
-						options: {
-							name: '[path][name].[ext]',
-						},
-					},
-				],
+				test: /\.(png|jpe?g)$/,
+				type: 'asset/resource',
 			},
 		],
 	},

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Logo from '../Logo';
+import headerBackground from '../../assets/images/header-bg.png';
 
 const HeaderTop = styled.div`
 	display: flex;
@@ -90,7 +91,7 @@ const Header = styled(HeaderComponent)`
 	flex-direction: column;
 	width: 100%;
 	height: 400px;
-	background-image: url('../src/assets/images/header-bg.png');
+	background-image: url(${headerBackground});
 	background-position: center;
 	background-size: cover;
 	box-shadow: 50px 150px 100px #232323 inset;
