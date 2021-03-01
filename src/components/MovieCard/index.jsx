@@ -20,13 +20,11 @@ const MovieMenu = styled.img`
 
 const MovieImageSection = styled.div`
 	position: relative;
-
 	&:hover {
 		cursor: pointer;
-	}
-
-	&:hover ${MovieMenu} {
-		display: block;
+		${MovieMenu} {
+			display: block;
+		}
 	}
 `;
 
@@ -40,25 +38,23 @@ const MovieInfoSection = styled.div`
 	justify-content: space-between;
 	align-items: flex-start;
 	padding: 10px 10px 30px;
+	color: #c0c0c0;
 `;
 
 const MovieTitle = styled.p`
 	font-size: 16px;
 	font-weight: bold;
-	color: #ccc;
 	margin-bottom: 5px;
 `;
 
 const MovieGenre = styled.p`
 	font-size: 14px;
-	color: #ccc;
 `;
 
 const MovieDate = styled.p`
 	font-size: 14px;
-	color: #ccc;
 	padding: 3px 8px;
-	border: 1px solid #ccc;
+	border: 1px solid #c0c0c0;
 	border-radius: 10%;
 `;
 
