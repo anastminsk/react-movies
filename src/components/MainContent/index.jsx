@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ResultsHandler from '../ResultsHandler';
 import MoviesList from '../MoviesList';
+import MoviesListErrorBoundary from '../MoviesListErrorBoundary';
 import { movies } from '../MoviesList/model';
 
 const filter = ['All', 'Documentary', 'Comedy', 'Horror', 'Crime'];
@@ -33,7 +34,9 @@ function MainContent() {
 				<MoviesResultsNumber>{movies.length}</MoviesResultsNumber>
 				<span>movies found</span>
 			</MoviesResults>
-			<MoviesList />
+			<MoviesListErrorBoundary>
+				<MoviesList />
+			</MoviesListErrorBoundary>
 		</MainContentWrapper>
 	);
 }
