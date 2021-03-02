@@ -1,21 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import MovieMenu from '../MovieMenu';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 
 const MovieCardContainer = styled.div`
 	width: calc(100% / 3 - 25px);
-`;
-
-const MovieMenu = styled.img`
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	background: #fff;
-	width: 35px;
-	height: 35px;
-	transform: rotate(90deg);
-	border-radius: 50%;
-	display: none;
 `;
 
 const MovieImageSection = styled.div`
@@ -23,7 +14,9 @@ const MovieImageSection = styled.div`
 	&:hover {
 		cursor: pointer;
 		${MovieMenu} {
-			display: block;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 		}
 	}
 `;
@@ -63,7 +56,9 @@ const MovieCard = ({ title, genre, date, image }) => {
 		<MovieCardContainer>
 			<MovieImageSection>
 				<MovieImage src={image} alt="movie-image" />
-				<MovieMenu src="../src/assets/images/dots-icon.png" alt="dots-icon" />
+				<MovieMenu>
+					<FontAwesomeIcon icon={faEllipsisV} />
+				</MovieMenu>
 			</MovieImageSection>
 			<MovieInfoSection>
 				<div>
@@ -77,11 +72,6 @@ const MovieCard = ({ title, genre, date, image }) => {
 };
 
 MovieImage.propTypes = {
-	src: PropTypes.string.isRequired,
-	alt: PropTypes.string.isRequired,
-};
-
-MovieMenu.propTypes = {
 	src: PropTypes.string.isRequired,
 	alt: PropTypes.string.isRequired,
 };
