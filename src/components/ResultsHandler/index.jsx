@@ -1,26 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-
-const ResultsHandlerSection = styled.div`
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
-
-	select {
-		font-size: 16px;
-		text-transform: uppercase;
-	}
-`;
-
-const FilterItem = styled.div`
-	margin-right: 20px;
-	cursor: pointer;
-`;
-
-const SortTitle = styled.span`
-	color: #c0c0c0;
-	margin-right: 20px;
-`;
+import {
+	ResultsHandlerSection,
+	FilterItem,
+	SortTitle
+} from './styled.results-handler';
 
 const ResultsHandlerComponent = ({ filter, sort, className }) => (
 	<div className={className}>
