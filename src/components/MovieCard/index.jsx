@@ -33,9 +33,17 @@ const MovieCard = ({ title, genre, date, image }) => {
 	);
 };
 
-MovieImage.propTypes = {
-	src: PropTypes.string.isRequired,
-	alt: PropTypes.string.isRequired,
+MovieCard.propTypes = {
+	title: PropTypes.string.isRequired,
+	genre: PropTypes.string.isRequired,
+	date: PropTypes.number.isRequired,
+	image: PropTypes.string.isRequired,
+};
+
+MovieCard.defaultProps = {
+	title: 'Just a Perfect Movie',
+	genre: 'Comedy',
+	date: 2021,
 };
 
 export default MovieCard;
