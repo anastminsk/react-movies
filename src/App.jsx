@@ -1,12 +1,21 @@
-import React from "react";
-import HelloReact from "./components/HelloReact";
-import "./App.less";
+import React from 'react';
+import styled from 'styled-components';
+import Header from './components/Header';
+import MainContent from './components/MainContent';
+import Footer from './components/Footer';
+
+const AppWrapper = styled.div`
+	max-width: 1024px;
+	margin: 0 auto;
+`;
 
 function App() {
 	return (
-		<div className="app">
-			<HelloReact />
-		</div>
+		<AppWrapper>
+			<Header />
+			<MainContent />
+			<Footer />
+		</AppWrapper>
 	);
 }
 
