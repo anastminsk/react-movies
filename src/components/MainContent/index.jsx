@@ -1,7 +1,7 @@
 import React from 'react';
 import ResultsHandler from '../ResultsHandler';
 import MoviesList from '../MoviesList';
-import MoviesListErrorBoundary from '../MoviesListErrorBoundary';
+import ErrorBoundary from '../ErrorBoundary';
 import { movies } from '../MoviesList/model';
 import {
 	MainContentWrapper,
@@ -16,14 +16,14 @@ const sort = ['Release Date', 'Genre', 'Title'];
 function MainContent() {
 	return (
 		<MainContentWrapper>
-			<ResultsHandler filter={filter} sort={sort} />
-			<MoviesResults>
-				<MoviesResultsNumber>{movies.length}</MoviesResultsNumber>
-				<span>movies found</span>
-			</MoviesResults>
-			<MoviesListErrorBoundary>
+			<ErrorBoundary>
+				<ResultsHandler filter={filter} sort={sort} />
+				<MoviesResults>
+					<MoviesResultsNumber>{movies.length}</MoviesResultsNumber>
+					<span>movies found</span>
+				</MoviesResults>
 				<MoviesList />
-			</MoviesListErrorBoundary>
+			</ErrorBoundary>
 		</MainContentWrapper>
 	);
 }
