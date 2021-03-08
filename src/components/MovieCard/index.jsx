@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import MovieMenu from '../MovieMenu';
 import Modal from '../Modal';
 import ModalAddEditContent from '../ModalAddEditContent';
+import ModalDeleteContent from '../ModalDeleteContent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -19,12 +20,18 @@ import {
 
 const MovieCard = (props) => {
 	const { id, title, genre, overview, url, runTime, releaseDate, image } = props;
-	const [isModalVisible, setIsModalVisible] = useState(false);
+	const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+	const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 
-	const modalHandler = (e) => {
+	const editModalHandler = (e) => {
 		e.preventDefault();
-		setIsModalVisible(!isModalVisible);
+		setIsEditModalVisible(!isEditModalVisible);
+	};
+
+	const deleteModalHandler = (e) => {
+		e.preventDefault();
+		setIsDeleteModalVisible(!isDeleteModalVisible);
 	};
 
 	const menuHandleClick = (event) => {
@@ -35,8 +42,13 @@ const MovieCard = (props) => {
 		setAnchorEl(null);
 	};
 
-	const editClick = (e) => {
-		modalHandler(e);
+	const onEditMenuItemClick = (e) => {
+		editModalHandler(e);
+		menuHandleClose();
+	}
+
+	const onDeleteMenuItemClick = (e) => {
+		deleteModalHandler(e);
 		menuHandleClose();
 	}
 
@@ -55,8 +67,8 @@ const MovieCard = (props) => {
 						open={Boolean(anchorEl)}
 						onClose={menuHandleClose}
 					>
-						<MenuItem onClick={editClick}>Edit</MenuItem>
-						<MenuItem onClick={menuHandleClose}>Delete</MenuItem>
+						<MenuItem onClick={onEditMenuItemClick}>Edit</MenuItem>
+						<MenuItem onClick={onDeleteMenuItemClick}>Delete</MenuItem>
 					</StyledMenu>
 				</MovieMenu>
 			</MovieImageSection>
@@ -68,15 +80,22 @@ const MovieCard = (props) => {
 				<MovieDate>{releaseDate.slice(0, 4)}</MovieDate>
 			</MovieInfoSection>
 			<Modal
-				showModal={isModalVisible}
-				closeModal={modalHandler}
+				showModal={isEditModalVisible}
+				closeModal={editModalHandler}
 				title={'EDIT MOVIE'}
 			>
 				<ModalAddEditContent
-					closeModal={modalHandler}
+					closeModal={editModalHandler}
 					formData={props}
 					editableMode
 				/>
+			</Modal>
+			<Modal
+				showModal={isDeleteModalVisible}
+				closeModal={deleteModalHandler}
+				title={'DELETE MOVIE'}
+			>
+				<ModalDeleteContent closeModal={deleteModalHandler} />
 			</Modal>
 		</MovieCardContainer>
 	);
