@@ -9,9 +9,13 @@ const MoviesListComponent = ({ className }) => {
 			{movies.map((movie) => (
 				<MovieCard
 					key={movie.id}
+					id={movie.id}
 					title={movie.title}
 					genre={movie.genre}
-					date={movie.date}
+					overview={movie.overview}
+					url={movie.url}
+					runTime={movie.runTime}
+					releaseDate={movie.releaseDate}
 					image={movie.image}
 				/>
 			))}

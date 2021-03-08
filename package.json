@@ -20,8 +20,11 @@
 	},
 	"homepage": "https://github.com/anastminsk/react-movies#readme",
 	"dependencies": {
+		"@material-ui/core": "^4.11.3",
+		"@material-ui/icons": "^4.11.2",
 		"react": "^17.0.1",
 		"react-dom": "^17.0.1",
+		"react-modal": "^3.12.1",
 		"react-redux": "^7.2.2",
 		"react-router": "^5.2.0",
 		"redux": "^4.0.5"

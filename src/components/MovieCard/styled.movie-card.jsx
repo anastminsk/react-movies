@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import Menu from '@material-ui/core/Menu';
+import { withStyles } from '@material-ui/core/styles';
 import MovieMenu from '../MovieMenu';
 
 export const MovieCardContainer = styled.div`
@@ -46,3 +48,13 @@ export const MovieDate = styled.p`
 	border: 1px solid #c0c0c0;
 	border-radius: 10%;
 `;
+
+export const StyledMenu = withStyles({
+	paper: {
+		color: '#fff',
+		backgroundColor: '#232323',
+		'& .MuiMenuItem-root:hover': {
+			backgroundColor: '#f65261',
+		},
+	},
+})(Menu);

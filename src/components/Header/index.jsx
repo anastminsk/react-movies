@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Logo from '../Logo';
+import Modal from '../Modal';
+import ModalAddEditContent from '../ModalAddEditContent';
 import headerBackground from '../../assets/images/header-bg.png';
 import {
 	HeaderTop,
@@ -14,11 +16,18 @@ import {
 } from './styled.header';
 
 const HeaderComponent = ({ className }) => {
+	const [isModalVisible, setIsModalVisible] = useState(false);
+
+	const modalHandler = (e) => {
+		e.preventDefault();
+		setIsModalVisible(!isModalVisible);
+	};
+
 	return (
 		<header className={className}>
 			<HeaderTop>
 				<Logo />
-				<HeaderAddBtn>+ ADD MOVIE</HeaderAddBtn>
+				<HeaderAddBtn onClick={modalHandler}>+ ADD MOVIE</HeaderAddBtn>
 			</HeaderTop>
 			<HeaderSearchBlock>
 				<HeaderTitle>FIND YOUR MOVIE</HeaderTitle>
@@ -30,6 +39,16 @@ const HeaderComponent = ({ className }) => {
 					<HeaderSearchBtn>SEARCH</HeaderSearchBtn>
 				</HeaderSearchLine>
 			</HeaderSearchBlock>
+			<Modal
+				showModal={isModalVisible}
+				closeModal={modalHandler}
+				title={'ADD MOVIE'}
+			>
+				<ModalAddEditContent
+					closeModal={modalHandler}
+					editableMode={false}
+				/>
+			</Modal>
 		</header>
 	);
 };
