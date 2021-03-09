@@ -9,7 +9,7 @@ export const movies = [
 	{
 		id: '001',
 		title: 'Pulp Fiction',
-		genre: 'action',
+		genre: 'Action',
 		runTime: 154,
 		releaseDate: '1994-10-25',
 		image: `${pulpFictionImage}`,
@@ -17,7 +17,7 @@ export const movies = [
 	{
 		id: '002',
 		title: 'Bohemian Rhapsody',
-		genre: 'drama',
+		genre: 'Drama',
 		runTime: 134,
 		releaseDate: '2018-05-11',
 		image: `${bohemianRhapsodyImage}`,
@@ -25,7 +25,7 @@ export const movies = [
 	{
 		id: '003',
 		title: 'Kill Bill: Vol 2',
-		genre: 'drama',
+		genre: 'Drama',
 		runTime: 247,
 		releaseDate: '2003-06-14',
 		image: `${killBillImage}`,
@@ -33,7 +33,7 @@ export const movies = [
 	{
 		id: '004',
 		title: 'Avengers: War of Infinity',
-		genre: 'action',
+		genre: 'Action',
 		runTime: 149,
 		releaseDate: '2018-04-23',
 		image: `${avengersImage}`,
@@ -41,7 +41,7 @@ export const movies = [
 	{
 		id: '005',
 		title: 'Inception',
-		genre: 'action',
+		genre: 'Action',
 		runTime: 148,
 		releaseDate: '2010-07-08',
 		image: `${inceptionImage}`,
@@ -49,7 +49,7 @@ export const movies = [
 	{
 		id: '006',
 		title: 'Reservoir dogs',
-		genre: 'crime',
+		genre: 'Crime',
 		runTime: 100,
 		releaseDate: '1992-01-21',
 		image: `${reservoirDogsImage}`,

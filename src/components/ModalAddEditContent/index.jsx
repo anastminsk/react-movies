@@ -1,9 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import {
-	InputLabel,
-	MenuItem,
-	Select,
-} from '@material-ui/core';
+import { InputLabel, MenuItem, Select } from '@material-ui/core';
 import {
 	StyledTextField,
 	StyledFormControl,
@@ -13,9 +9,17 @@ import {
 } from './styled.modal-add-edit-content';
 
 const ModalAddEditContent = ({ closeModal, formData, editableMode }) => {
+	const genreList = [
+		'Comedy',
+		'Documentary',
+		'Horror',
+		'Crime',
+		'Action',
+		'Drama',
+	];
 	const movieID = editableMode ? formData?.id : '';
 	const [genre, setGenre] = useState(
-		editableMode ? formData?.genre : 'comedy'
+		editableMode ? formData?.genre : genreList[0]
 	);
 	const [title, setTitle] = useState(
 		editableMode ? formData?.title : 'Title'
@@ -55,7 +59,8 @@ const ModalAddEditContent = ({ closeModal, formData, editableMode }) => {
 	return (
 		<form noValidate autoComplete="off">
 			<Fragment>
-				<StyledTextField style={{display: editableMode ? 'block' : 'none'}}
+				<StyledTextField
+					style={{ display: editableMode ? 'block' : 'none' }}
 					label="Movie ID"
 					name="movieID"
 					value={movieID}
@@ -87,17 +92,15 @@ const ModalAddEditContent = ({ closeModal, formData, editableMode }) => {
 					onChange={handleChangeMovieUrl}
 				/>
 				<StyledFormControl fullWidth>
-					<InputLabel>Genre</InputLabel>
+					<InputLabel id="genre-label">Genre</InputLabel>
 					<Select
+						labelId="genre-label"
 						value={genre}
 						onChange={handleChangeGenre}
 					>
-						<MenuItem value={'comedy'}>Comedy</MenuItem>
-						<MenuItem value={'documentary'}>Documentary</MenuItem>
-						<MenuItem value={'horror'}>Horror</MenuItem>
-						<MenuItem value={'crime'}>Crime</MenuItem>
-						<MenuItem value={'action'}>Action</MenuItem>
-						<MenuItem value={'drama'}>Drama</MenuItem>
+						{genreList.map((item) => (
+							<MenuItem key={item} value={item}>{item}</MenuItem>
+						))}
 					</Select>
 				</StyledFormControl>
 				<StyledTextField

@@ -19,7 +19,16 @@ import {
 } from './styled.movie-card';
 
 const MovieCard = (props) => {
-	const { id, title, genre, overview, url, runTime, releaseDate, image } = props;
+	const {
+		id,
+		title,
+		genre,
+		overview,
+		url,
+		runTime,
+		releaseDate,
+		image,
+	} = props;
 	const [isEditModalVisible, setIsEditModalVisible] = useState(false);
 	const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
@@ -45,12 +54,12 @@ const MovieCard = (props) => {
 	const onEditMenuItemClick = (e) => {
 		editModalHandler(e);
 		menuHandleClose();
-	}
+	};
 
 	const onDeleteMenuItemClick = (e) => {
 		deleteModalHandler(e);
 		menuHandleClose();
-	}
+	};
 
 	return (
 		<MovieCardContainer>
@@ -68,7 +77,9 @@ const MovieCard = (props) => {
 						onClose={menuHandleClose}
 					>
 						<MenuItem onClick={onEditMenuItemClick}>Edit</MenuItem>
-						<MenuItem onClick={onDeleteMenuItemClick}>Delete</MenuItem>
+						<MenuItem onClick={onDeleteMenuItemClick}>
+							Delete
+						</MenuItem>
 					</StyledMenu>
 				</MovieMenu>
 			</MovieImageSection>
@@ -104,7 +115,14 @@ const MovieCard = (props) => {
 MovieCard.propTypes = {
 	id: PropTypes.string.isRequired,
 	title: PropTypes.string.isRequired,
-	genre: PropTypes.string.isRequired,
+	genre: PropTypes.oneOf([
+		'Comedy',
+		'Documentary',
+		'Horror',
+		'Crime',
+		'Action',
+		'Drama',
+	]).isRequired,
 	overview: PropTypes.string.isRequired,
 	url: PropTypes.string.isRequired,
 	runTime: PropTypes.number.isRequired,
@@ -113,7 +131,7 @@ MovieCard.propTypes = {
 };
 
 MovieCard.defaultProps = {
-	genre: 'comedy',
+	genre: 'Comedy',
 	title: 'Just a Perfect Movie',
 	overview: 'The Perfect Movie Overview',
 	url: 'https://www.netflix.com/',
