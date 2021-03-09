@@ -8,7 +8,7 @@ import {
 
 export const StyledTextField = withStyles({
 	root: {
-		backgroundColor: '#424242',
+		backgroundColor: '#555',
 		marginBottom: '15px',
 		'& .MuiInput-root': {
 			color: '#fff',
@@ -25,7 +25,7 @@ export const StyledTextField = withStyles({
 
 export const StyledFormControl = withStyles({
 	root: {
-		backgroundColor: '#424242',
+		backgroundColor: '#555',
 		marginBottom: '15px',
 		'& .MuiInput-root': {
 			color: '#fff',
