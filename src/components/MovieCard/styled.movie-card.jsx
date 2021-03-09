@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import Menu from '@material-ui/core/Menu';
-import { withStyles } from '@material-ui/core/styles';
 import MovieMenu from '../MovieMenu';
+import IconButton from '@material-ui/core/IconButton';
+import { withStyles } from '@material-ui/core/styles';
 
 export const MovieCardContainer = styled.div`
 	width: calc(100% / 3 - 25px);
@@ -58,3 +59,11 @@ export const StyledMenu = withStyles({
 		},
 	},
 })(Menu);
+
+export const StyledIconButton = withStyles({
+	root: {
+		color: '#fff',
+		width: '100%',
+		height: '100%',
+	},
+})(IconButton);

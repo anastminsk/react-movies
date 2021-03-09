@@ -9,8 +9,8 @@ const MovieMenu = styled(MovieMenuContainer)`
 	position: absolute;
 	top: 15px;
 	right: 15px;
-	width: 30px;
-	height: 30px;
+	width: 35px;
+	height: 35px;
 	background-color: #232323;
 	border-radius: 50%;
 	display: none;

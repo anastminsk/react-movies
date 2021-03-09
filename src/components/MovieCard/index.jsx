@@ -4,8 +4,7 @@ import MovieMenu from '../MovieMenu';
 import Modal from '../Modal';
 import ModalAddEditContent from '../ModalAddEditContent';
 import ModalDeleteContent from '../ModalDeleteContent';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import MenuItem from '@material-ui/core/MenuItem';
 import {
 	MovieCardContainer,
@@ -16,19 +15,11 @@ import {
 	MovieGenre,
 	MovieDate,
 	StyledMenu,
+	StyledIconButton,
 } from './styled.movie-card';
 
 const MovieCard = (props) => {
-	const {
-		id,
-		title,
-		genre,
-		overview,
-		url,
-		runTime,
-		releaseDate,
-		image,
-	} = props;
+	const { title, genre, releaseDate, image } = props;
 	const [isEditModalVisible, setIsEditModalVisible] = useState(false);
 	const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
@@ -66,10 +57,9 @@ const MovieCard = (props) => {
 			<MovieImageSection>
 				<MovieImage src={image} alt="movie-image" />
 				<MovieMenu>
-					<FontAwesomeIcon
-						icon={faEllipsisV}
-						onClick={menuHandleClick}
-					/>
+					<StyledIconButton aria-label="more menu" onClick={menuHandleClick}>
+						<MoreVertIcon />
+					</StyledIconButton>
 					<StyledMenu
 						anchorEl={anchorEl}
 						keepMounted
