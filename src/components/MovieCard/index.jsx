@@ -57,7 +57,10 @@ const MovieCard = (props) => {
 			<MovieImageSection>
 				<MovieImage src={image} alt="movie-image" />
 				<MovieMenu>
-					<StyledIconButton aria-label="more menu" onClick={menuHandleClick}>
+					<StyledIconButton
+						aria-label="more menu"
+						onClick={menuHandleClick}
+					>
 						<MoreVertIcon />
 					</StyledIconButton>
 					<StyledMenu
@@ -65,6 +68,15 @@ const MovieCard = (props) => {
 						keepMounted
 						open={Boolean(anchorEl)}
 						onClose={menuHandleClose}
+						getContentAnchorEl={null}
+						anchorOrigin={{
+							vertical: 'top',
+							horizontal: 'left',
+						}}
+						transformOrigin={{
+							vertical: 'top',
+							horizontal: 'center',
+						}}
 					>
 						<MenuItem onClick={onEditMenuItemClick}>Edit</MenuItem>
 						<MenuItem onClick={onDeleteMenuItemClick}>
