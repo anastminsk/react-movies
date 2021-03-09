@@ -1,19 +1,11 @@
 import styled from 'styled-components';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 export const HeaderTop = styled.div`
 	display: flex;
 	justify-content: space-between;
 	padding: 20px 40px;
-`;
-
-export const HeaderAddBtn = styled.button`
-	color: #f65261;
-	border: none;
-	background: #555;
-	border-radius: 5px;
-	padding: 15px 35px;
-	font-size: 18px;
-	cursor: pointer;
 `;
 
 export const HeaderSearchBlock = styled.div`
@@ -45,13 +37,30 @@ export const HeaderSearchInput = styled.input`
 	flex-grow: 1;
 `;
 
-export const HeaderSearchBtn = styled.button`
-	background: #f65261;
-	color: #fff;
-	border: none;
-	border-radius: 5px;
-	padding: 15px 55px;
-	font-size: 18px;
-	cursor: pointer;
-	margin-left: 5px;
-`;
+export const HeaderAddButton = withStyles({
+	root: {
+		backgroundColor: '#555',
+		fontSize: '18px',
+		'&:hover': {
+			backgroundColor: '#555',
+		},
+	},
+	label: {
+		color: '#f65261',
+	},
+})(Button);
+
+export const HeaderSearchButton = withStyles({
+	root: {
+		backgroundColor: '#f65261',
+		fontSize: '18px',
+		marginLeft: '5px',
+		width: '200px',
+		'&:hover': {
+			backgroundColor: '#f65261',
+		},
+	},
+	label: {
+		color: '#fff',
+	},
+})(Button);

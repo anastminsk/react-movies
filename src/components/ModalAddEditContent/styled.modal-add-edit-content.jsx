@@ -47,7 +47,6 @@ export const ResetButton = withStyles({
 		marginRight: '10px',
 	},
 	label: {
-		textTransform: 'uppercase',
 		color: '#f65261',
 	},
 })(Button);
@@ -60,7 +59,6 @@ export const SubmitButton = withStyles({
 		},
 	},
 	label: {
-		textTransform: 'uppercase',
 		color: '#fff',
 	},
 })(Button);

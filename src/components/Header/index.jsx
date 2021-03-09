@@ -4,15 +4,16 @@ import PropTypes from 'prop-types';
 import Logo from '../Logo';
 import Modal from '../Modal';
 import ModalAddEditContent from '../ModalAddEditContent';
+import AddIcon from '@material-ui/icons/Add';
 import headerBackground from '../../assets/images/header-bg.png';
 import {
 	HeaderTop,
-	HeaderAddBtn,
 	HeaderSearchBlock,
 	HeaderTitle,
 	HeaderSearchLine,
 	HeaderSearchInput,
-	HeaderSearchBtn,
+	HeaderAddButton,
+	HeaderSearchButton,
 } from './styled.header';
 
 const HeaderComponent = ({ className }) => {
@@ -27,7 +28,13 @@ const HeaderComponent = ({ className }) => {
 		<header className={className}>
 			<HeaderTop>
 				<Logo />
-				<HeaderAddBtn onClick={modalHandler}>+ ADD MOVIE</HeaderAddBtn>
+				<HeaderAddButton
+					variant="contained"
+					startIcon={<AddIcon />}
+					onClick={modalHandler}
+				>
+					Add movie
+				</HeaderAddButton>
 			</HeaderTop>
 			<HeaderSearchBlock>
 				<HeaderTitle>FIND YOUR MOVIE</HeaderTitle>
@@ -36,7 +43,9 @@ const HeaderComponent = ({ className }) => {
 						type="text"
 						placeholder="What do you want to watch?"
 					/>
-					<HeaderSearchBtn>SEARCH</HeaderSearchBtn>
+					<HeaderSearchButton variant="contained">
+						Search
+					</HeaderSearchButton>
 				</HeaderSearchLine>
 			</HeaderSearchBlock>
 			<Modal

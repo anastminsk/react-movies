@@ -15,7 +15,6 @@ export const StyledButton = withStyles({
 		},
 	},
 	label: {
-		textTransform: 'uppercase',
 		color: '#fff',
 	},
 })(Button);
