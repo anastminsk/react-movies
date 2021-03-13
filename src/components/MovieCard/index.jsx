@@ -1,89 +1,142 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import MovieMenu from '../MovieMenu';
+import Modal from '../Modal';
+import ModalAddEditContent from '../ModalAddEditContent';
+import ModalDeleteContent from '../ModalDeleteContent';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MenuItem from '@material-ui/core/MenuItem';
+import {
+	MovieCardContainer,
+	MovieImageSection,
+	MovieImage,
+	MovieInfoSection,
+	MovieTitle,
+	MovieGenre,
+	MovieDate,
+	StyledMenu,
+	StyledIconButton,
+} from './styled.movie-card';
 
-const MovieCardContainer = styled.div`
-	width: calc(100% / 3 - 25px);
-`;
+const MovieCard = (props) => {
+	const { title, genre, releaseDate, image } = props;
+	const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+	const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+	const [anchorEl, setAnchorEl] = React.useState(null);
 
-const MovieMenu = styled.img`
-	position: absolute;
-	top: 10px;
-	right: 10px;
-	background: #fff;
-	width: 35px;
-	height: 35px;
-	transform: rotate(90deg);
-	border-radius: 50%;
-	display: none;
-`;
+	const editModalHandler = (e) => {
+		e.preventDefault();
+		setIsEditModalVisible(!isEditModalVisible);
+	};
 
-const MovieImageSection = styled.div`
-	position: relative;
-	&:hover {
-		cursor: pointer;
-		${MovieMenu} {
-			display: block;
-		}
-	}
-`;
+	const deleteModalHandler = (e) => {
+		e.preventDefault();
+		setIsDeleteModalVisible(!isDeleteModalVisible);
+	};
 
-const MovieImage = styled.img`
-	width: 100%;
-	height: 400px;
-`;
+	const menuHandleClick = (event) => {
+		setAnchorEl(event.currentTarget);
+	};
 
-const MovieInfoSection = styled.div`
-	display: flex;
-	justify-content: space-between;
-	align-items: flex-start;
-	padding: 10px 10px 30px;
-	color: #c0c0c0;
-`;
+	const menuHandleClose = () => {
+		setAnchorEl(null);
+	};
 
-const MovieTitle = styled.p`
-	font-size: 16px;
-	font-weight: bold;
-	margin-bottom: 5px;
-`;
+	const onEditMenuItemClick = (e) => {
+		editModalHandler(e);
+		menuHandleClose();
+	};
 
-const MovieGenre = styled.p`
-	font-size: 14px;
-`;
+	const onDeleteMenuItemClick = (e) => {
+		deleteModalHandler(e);
+		menuHandleClose();
+	};
 
-const MovieDate = styled.p`
-	font-size: 14px;
-	padding: 3px 8px;
-	border: 1px solid #c0c0c0;
-	border-radius: 10%;
-`;
-
-const MovieCard = ({ title, genre, date, image }) => {
 	return (
 		<MovieCardContainer>
 			<MovieImageSection>
 				<MovieImage src={image} alt="movie-image" />
-				<MovieMenu src="../src/assets/images/dots-icon.png" alt="dots-icon" />
+				<MovieMenu>
+					<StyledIconButton
+						aria-label="more menu"
+						onClick={menuHandleClick}
+					>
+						<MoreVertIcon />
+					</StyledIconButton>
+					<StyledMenu
+						anchorEl={anchorEl}
+						keepMounted
+						open={Boolean(anchorEl)}
+						onClose={menuHandleClose}
+						getContentAnchorEl={null}
+						anchorOrigin={{
+							vertical: 'top',
+							horizontal: 'left',
+						}}
+						transformOrigin={{
+							vertical: 'top',
+							horizontal: 'center',
+						}}
+					>
+						<MenuItem onClick={onEditMenuItemClick}>Edit</MenuItem>
+						<MenuItem onClick={onDeleteMenuItemClick}>
+							Delete
+						</MenuItem>
+					</StyledMenu>
+				</MovieMenu>
 			</MovieImageSection>
 			<MovieInfoSection>
 				<div>
 					<MovieTitle>{title}</MovieTitle>
 					<MovieGenre>{genre}</MovieGenre>
 				</div>
-				<MovieDate>{date}</MovieDate>
+				<MovieDate>{releaseDate.slice(0, 4)}</MovieDate>
 			</MovieInfoSection>
+			<Modal
+				showModal={isEditModalVisible}
+				closeModal={editModalHandler}
+				title={'EDIT MOVIE'}
+			>
+				<ModalAddEditContent
+					closeModal={editModalHandler}
+					formData={props}
+					editableMode
+				/>
+			</Modal>
+			<Modal
+				showModal={isDeleteModalVisible}
+				closeModal={deleteModalHandler}
+				title={'DELETE MOVIE'}
+			>
+				<ModalDeleteContent closeModal={deleteModalHandler} />
+			</Modal>
 		</MovieCardContainer>
 	);
 };
 
-MovieImage.propTypes = {
-	src: PropTypes.string.isRequired,
-	alt: PropTypes.string.isRequired,
+MovieCard.propTypes = {
+	id: PropTypes.string.isRequired,
+	title: PropTypes.string.isRequired,
+	genre: PropTypes.oneOf([
+		'Comedy',
+		'Documentary',
+		'Horror',
+		'Crime',
+		'Action',
+		'Drama',
+	]).isRequired,
+	overview: PropTypes.string.isRequired,
+	url: PropTypes.string.isRequired,
+	runTime: PropTypes.number.isRequired,
+	releaseDate: PropTypes.string.isRequired,
+	image: PropTypes.string.isRequired,
 };
 
-MovieMenu.propTypes = {
-	src: PropTypes.string.isRequired,
-	alt: PropTypes.string.isRequired,
+MovieCard.defaultProps = {
+	genre: 'Comedy',
+	title: 'Just a Perfect Movie',
+	overview: 'The Perfect Movie Overview',
+	url: 'https://www.netflix.com/',
 };
 
 export default MovieCard;

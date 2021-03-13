@@ -1,44 +1,44 @@
 import React from 'react';
 import styled from 'styled-components';
+import { MenuItem } from '@material-ui/core';
+import {
+	ResultsHandlerSection,
+	FilterItem,
+	SortTitle,
+	StyledFormControl,
+	StyledSelect,
+} from './styled.results-handler';
 
-const ResultsHandlerSection = styled.div`
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
+const ResultsHandlerComponent = ({ filter, sort, className }) => {
+	const [sortValue, setSortValue] = React.useState(sort[0]);
 
-	select {
-		font-size: 16px;
-		text-transform: uppercase;
-	}
-`;
+	const handleChange = (event) => {
+		setSortValue(event.target.value);
+	};
 
-const FilterItem = styled.div`
-	margin-right: 20px;
-	cursor: pointer;
-`;
-
-const SortTitle = styled.span`
-	color: #c0c0c0;
-	margin-right: 20px;
-`;
-
-const ResultsHandlerComponent = ({ filter, sort, className }) => (
-	<div className={className}>
-		<ResultsHandlerSection>
-			{filter.map((elem) => (
-				<FilterItem key={elem}>{elem}</FilterItem>
-			))}
-		</ResultsHandlerSection>
-		<ResultsHandlerSection>
-			<SortTitle>Sort By</SortTitle>
-			<select>
-				{sort.map((value) => (
-					<option key={value}>{value}</option>
+	return (
+		<div className={className}>
+			<ResultsHandlerSection>
+				{filter.map((elem) => (
+					<FilterItem key={elem}>{elem}</FilterItem>
 				))}
-			</select>
-		</ResultsHandlerSection>
-	</div>
-);
+			</ResultsHandlerSection>
+			<ResultsHandlerSection>
+				<SortTitle>Sort By</SortTitle>
+				<StyledFormControl>
+					<StyledSelect
+						value={sortValue}
+						onChange={handleChange}
+					>
+						{sort.map((item) => (
+							<MenuItem key={item} value={item}>{item}</MenuItem>
+						))}
+					</StyledSelect>
+				</StyledFormControl>
+			</ResultsHandlerSection>
+		</div>
+	);
+};
 
 const ResultsHandler = styled(ResultsHandlerComponent)`
 	display: flex;

@@ -1,14 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
 import Logo from '../Logo';
-
-const FooterContent = styled.div`
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 70px;
-	background: #424242;
-`;
+import { FooterContent } from './styled.footer';
 
 const Footer = () => (
 	<FooterContent>

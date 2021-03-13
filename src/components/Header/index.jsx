@@ -1,71 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Logo from '../Logo';
+import Modal from '../Modal';
+import ModalAddEditContent from '../ModalAddEditContent';
+import AddIcon from '@material-ui/icons/Add';
 import headerBackground from '../../assets/images/header-bg.png';
-
-const HeaderTop = styled.div`
-	display: flex;
-	justify-content: space-between;
-	padding: 20px 40px;
-`;
-
-const HeaderAddBtn = styled.button`
-	color: #f65261;
-	border: none;
-	background: #555;
-	border-radius: 5px;
-	padding: 15px 35px;
-	font-size: 18px;
-	cursor: pointer;
-`;
-
-const HeaderSearchBlock = styled.div`
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-	padding: 20px 100px;
-`;
-
-const HeaderTitle = styled.p`
-	color: #fff;
-	font-size: 44px;
-	padding-bottom: 20px;
-`;
-
-const HeaderSearchLine = styled.div`
-	display: flex;
-	justify-content: space-between;
-`;
-
-const HeaderSearchInput = styled.input`
-	border: none;
-	border-radius: 5px;
-	padding: 18px;
-	margin-right: 10px;
-	background: #232323;
-	font-size: 18px;
-	color: #fff;
-	flex-grow: 1;
-`;
-
-const HeaderSearchBtn = styled.button`
-	background: #f65261;
-	color: #fff;
-	border: none;
-	border-radius: 5px;
-	padding: 15px 55px;
-	font-size: 18px;
-	cursor: pointer;
-	margin-left: 5px;
-`;
+import {
+	HeaderTop,
+	HeaderSearchBlock,
+	HeaderTitle,
+	HeaderSearchLine,
+	HeaderSearchInput,
+	HeaderAddButton,
+	HeaderSearchButton,
+} from './styled.header';
 
 const HeaderComponent = ({ className }) => {
+	const [isModalVisible, setIsModalVisible] = useState(false);
+
+	const modalHandler = (e) => {
+		e.preventDefault();
+		setIsModalVisible(!isModalVisible);
+	};
+
 	return (
 		<header className={className}>
 			<HeaderTop>
 				<Logo />
-				<HeaderAddBtn>+ ADD MOVIE</HeaderAddBtn>
+				<HeaderAddButton
+					variant="contained"
+					startIcon={<AddIcon />}
+					onClick={modalHandler}
+				>
+					Add movie
+				</HeaderAddButton>
 			</HeaderTop>
 			<HeaderSearchBlock>
 				<HeaderTitle>FIND YOUR MOVIE</HeaderTitle>
@@ -74,9 +43,21 @@ const HeaderComponent = ({ className }) => {
 						type="text"
 						placeholder="What do you want to watch?"
 					/>
-					<HeaderSearchBtn>SEARCH</HeaderSearchBtn>
+					<HeaderSearchButton variant="contained">
+						Search
+					</HeaderSearchButton>
 				</HeaderSearchLine>
 			</HeaderSearchBlock>
+			<Modal
+				showModal={isModalVisible}
+				closeModal={modalHandler}
+				title={'ADD MOVIE'}
+			>
+				<ModalAddEditContent
+					closeModal={modalHandler}
+					editableMode={false}
+				/>
+			</Modal>
 		</header>
 	);
 };

@@ -11,8 +11,6 @@ module.exports = {
 		extensions: ['.js', '.jsx']
 	},
 
-	watch: true,
-
 	module: {
 		rules: [
 			{

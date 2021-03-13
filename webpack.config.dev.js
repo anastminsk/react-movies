@@ -4,7 +4,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = merge(commonConfig, {
 	mode: 'development',
-	devtool: 'source-map',
+	devtool: 'inline-source-map',
+	devServer: {
+		contentBase: './dist',
+	},
 
 	module: {
 		rules: [

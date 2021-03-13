@@ -5,6 +5,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = merge(commonConfig, {
 	mode: 'production',
+	watch: true,
+	performance: {
+		hints: false,
+		maxEntrypointSize: 512000,
+		maxAssetSize: 512000
+	},
 
 	module: {
 		rules: [
