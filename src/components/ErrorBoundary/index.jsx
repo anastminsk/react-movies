@@ -1,5 +1,5 @@
 import React from 'react';
-import { movies } from '../MoviesList/model';
+import { movies } from '../MainContent/model';
 
 class ErrorBoundary extends React.Component {
 	constructor(props) {

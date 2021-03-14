@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Header from './components/Header';
 import MainContent from './components/MainContent';
@@ -9,14 +9,16 @@ const AppWrapper = styled.div`
 	margin: 0 auto;
 `;
 
-function App() {
+const App = () => {
+	const [movieId, setMovieId] = useState('001');
+
 	return (
 		<AppWrapper>
-			<Header />
+			<Header movieDetailsId={movieId} />
 			<MainContent />
 			<Footer />
 		</AppWrapper>
 	);
-}
+};
 
 export default App;

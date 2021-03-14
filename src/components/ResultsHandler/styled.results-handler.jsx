@@ -16,6 +16,10 @@ export const ResultsHandlerSection = styled.div`
 export const FilterItem = styled.div`
 	margin-right: 20px;
 	cursor: pointer;
+
+	&:hover {
+		color: #f65261;
+	}
 `;
 
 export const SortTitle = styled.span`

@@ -1,12 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import MovieCard from '../MovieCard';
-import { movies } from './model';
 
-const MoviesListComponent = ({ className }) => {
+const MoviesListComponent = ({ moviesList, className }) => {
 	return (
 		<div className={className}>
-			{movies.map((movie) => (
+			{moviesList.map((movie) => (
 				<MovieCard
 					key={movie.id}
 					id={movie.id}
