@@ -12,7 +12,7 @@ import {
 const filter = ['All', 'Documentary', 'Action', 'Drama', 'Crime'];
 const sort = ['Release Date', 'Genre', 'Title'];
 
-const MainContent = () => {
+const MainContent = ({ onMovieCardClick }) => {
 	const [moviesList, setMoviesList] = useState([]);
 
 	const filterMovies = useCallback((value) => {
@@ -41,7 +41,10 @@ const MainContent = () => {
 					</MoviesResultsNumber>
 					<span>movies found</span>
 				</MoviesResults>
-				<MoviesList moviesList={moviesList} />
+				<MoviesList
+					moviesList={moviesList}
+					onMovieCardClick={onMovieCardClick}
+				/>
 			</ErrorBoundary>
 		</MainContentWrapper>
 	);

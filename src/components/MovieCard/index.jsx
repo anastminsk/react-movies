@@ -19,7 +19,7 @@ import {
 } from './styled.movie-card';
 
 const MovieCard = (props) => {
-	const { title, genre, releaseDate, image } = props;
+	const { id, title, genre, releaseDate, image, onMovieCardClick } = props;
 	const [isEditModalVisible, setIsEditModalVisible] = useState(false);
 	const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
@@ -55,7 +55,13 @@ const MovieCard = (props) => {
 	return (
 		<MovieCardContainer>
 			<MovieImageSection>
-				<MovieImage src={image} alt="movie-image" />
+				<MovieImage
+					src={image}
+					alt="movie-image"
+					onClick={() => {
+						onMovieCardClick(id);
+					}}
+				/>
 				<MovieMenu>
 					<StyledIconButton
 						aria-label="more menu"

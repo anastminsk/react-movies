@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import MovieCard from '../MovieCard';
 
-const MoviesListComponent = ({ moviesList, className }) => {
+const MoviesListComponent = ({ moviesList, onMovieCardClick, className }) => {
 	return (
 		<div className={className}>
 			{moviesList.map((movie) => (
@@ -16,6 +16,7 @@ const MoviesListComponent = ({ moviesList, className }) => {
 					runTime={movie.runTime}
 					releaseDate={movie.releaseDate}
 					image={movie.image}
+					onMovieCardClick={onMovieCardClick}
 				/>
 			))}
 		</div>

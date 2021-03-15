@@ -10,12 +10,13 @@ const AppWrapper = styled.div`
 `;
 
 const App = () => {
-	const [movieId, setMovieId] = useState('001');
+	const [movieId, setMovieId] = useState(null);
+	const handleMovieCardClick = (movieId) => setMovieId(movieId);
 
 	return (
 		<AppWrapper>
 			<Header movieDetailsId={movieId} />
-			<MainContent />
+			<MainContent onMovieCardClick={handleMovieCardClick} />
 			<Footer />
 		</AppWrapper>
 	);
