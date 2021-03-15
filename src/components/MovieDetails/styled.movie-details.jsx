@@ -21,7 +21,7 @@ export const MovieDetailsRating = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	border: 1px solid white;
+	border: 2px solid white;
 	border-radius: 50%;
 	width: 50px;
 	height: 50px;
