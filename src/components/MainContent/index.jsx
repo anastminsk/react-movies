@@ -21,11 +21,11 @@ const MainContent = ({ onMovieCardClick }) => {
 				? movies.filter((movie) => movie.genre === value)
 				: movies;
 		setMoviesList(filteredResults);
-	});
+	}, [movies]);
 
 	useEffect(() => {
 		setMoviesList(movies);
-	}, [setMoviesList]);
+	}, []);
 
 	return (
 		<MainContentWrapper>
