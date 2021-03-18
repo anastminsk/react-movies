@@ -1,31 +1,53 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import ResultsHandler from '../ResultsHandler';
 import MoviesList from '../MoviesList';
 import ErrorBoundary from '../ErrorBoundary';
-import { movies } from '../MoviesList/model';
+import { movies } from './model';
 import {
 	MainContentWrapper,
 	MoviesResults,
-	MoviesResultsNumber
+	MoviesResultsNumber,
 } from './styled.main-content';
 
-const filter = ['All', 'Documentary', 'Comedy', 'Horror', 'Crime'];
+const filter = ['All', 'Documentary', 'Action', 'Drama', 'Crime'];
 const sort = ['Release Date', 'Genre', 'Title'];
 
+const MainContent = ({ onMovieCardClick }) => {
+	const [moviesList, setMoviesList] = useState([]);
 
-function MainContent() {
+	const filterMovies = useCallback((value) => {
+		const filteredResults =
+			value !== 'All'
+				? movies.filter((movie) => movie.genre === value)
+				: movies;
+		setMoviesList(filteredResults);
+	});
+
+	useEffect(() => {
+		setMoviesList(movies);
+	}, [setMoviesList]);
+
 	return (
 		<MainContentWrapper>
 			<ErrorBoundary>
-				<ResultsHandler filter={filter} sort={sort} />
+				<ResultsHandler
+					filter={filter}
+					sort={sort}
+					onFilterChange={filterMovies}
+				/>
 				<MoviesResults>
-					<MoviesResultsNumber>{movies.length}</MoviesResultsNumber>
+					<MoviesResultsNumber>
+						{moviesList.length}
+					</MoviesResultsNumber>
 					<span>movies found</span>
 				</MoviesResults>
-				<MoviesList />
+				<MoviesList
+					moviesList={moviesList}
+					onMovieCardClick={onMovieCardClick}
+				/>
 			</ErrorBoundary>
 		</MainContentWrapper>
 	);
-}
+};
 
 export default MainContent;
