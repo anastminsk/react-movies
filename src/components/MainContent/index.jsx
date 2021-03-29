@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { fetchMovies } from '../../redux/actions';
 import ResultsHandler from '../ResultsHandler';
 import MoviesList from '../MoviesList';
 import ErrorBoundary from '../ErrorBoundary';
-import { movies } from './model';
 import {
 	MainContentWrapper,
 	MoviesResults,
@@ -12,20 +13,18 @@ import {
 const filter = ['All', 'Documentary', 'Action', 'Drama', 'Crime'];
 const sort = ['Release Date', 'Genre', 'Title'];
 
-const MainContent = ({ onMovieCardClick }) => {
-	const [moviesList, setMoviesList] = useState([]);
+const MainContent = ({ movies, fetchMovies, onMovieCardClick }) => {
+	// const [moviesList, setMoviesList] = useState([]);
+
+	useEffect(() => fetchMovies(), []);
 
 	const filterMovies = useCallback((value) => {
 		const filteredResults =
 			value !== 'All'
 				? movies.filter((movie) => movie.genre === value)
 				: movies;
-		setMoviesList(filteredResults);
+		// setMoviesList(filteredResults);
 	}, [movies]);
-
-	useEffect(() => {
-		setMoviesList(movies);
-	}, []);
 
 	return (
 		<MainContentWrapper>
@@ -33,16 +32,16 @@ const MainContent = ({ onMovieCardClick }) => {
 				<ResultsHandler
 					filter={filter}
 					sort={sort}
-					onFilterChange={filterMovies}
+					// onFilterChange={filterMovies}
 				/>
 				<MoviesResults>
 					<MoviesResultsNumber>
-						{moviesList.length}
+						{movies.length}
 					</MoviesResultsNumber>
 					<span>movies found</span>
 				</MoviesResults>
 				<MoviesList
-					moviesList={moviesList}
+					movies={movies}
 					onMovieCardClick={onMovieCardClick}
 				/>
 			</ErrorBoundary>
@@ -50,4 +49,12 @@ const MainContent = ({ onMovieCardClick }) => {
 	);
 };
 
-export default MainContent;
+const mapStateToProps = (state) => ({
+	movies: state.movies.movies,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	fetchMovies: () => dispatch(fetchMovies()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainContent);

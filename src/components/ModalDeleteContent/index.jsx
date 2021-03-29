@@ -5,14 +5,14 @@ import {
 	ButtonWrapper,
 } from './styled.modal-delete-content';
 
-const ModalDeleteContent = ({ closeModal }) => {
+const ModalDeleteContent = ({ onDeleteMovie }) => {
 	return (
 		<Fragment>
 			<ModalDeleteDescription>
 				Are you sure you want to delete this movie?
 			</ModalDeleteDescription>
 			<ButtonWrapper>
-				<StyledButton variant="outlined" onClick={closeModal}>
+				<StyledButton variant="outlined" onClick={onDeleteMovie}>
 					Confirm
 				</StyledButton>
 			</ButtonWrapper>

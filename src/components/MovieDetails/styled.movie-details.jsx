@@ -29,7 +29,8 @@ export const MovieDetailsRating = styled.div`
 	color: green;
 `;
 
-export const MovieDetailsGenre = styled.div`
+export const MovieDetailsTagline = styled.div`
+	margin-top: 5px;
 	margin-bottom: 20px;
 `;
 
