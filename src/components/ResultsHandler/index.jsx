@@ -9,17 +9,15 @@ import {
 	StyledSelect,
 } from './styled.results-handler';
 
-const ResultsHandlerComponent = ({ filter, sort, onFilterChange, className }) => {
-	const [sortValue, setSortValue] = React.useState(sort[0]);
-
-	const handleChange = (event) => {
-		setSortValue(event.target.value);
+const ResultsHandlerComponent = ({ filters, sort, sortValue, onFilterChange, onSortingChange, className }) => {
+	const handleSortingChange = (event) => {
+		onSortingChange(event.target.value);
 	};
 
 	return (
 		<div className={className}>
 			<ResultsHandlerSection>
-				{filter.map((elem) => (
+				{filters.map((elem) => (
 					<FilterItem
 						key={elem}
 						onClick={() => onFilterChange(elem)}
@@ -31,10 +29,10 @@ const ResultsHandlerComponent = ({ filter, sort, onFilterChange, className }) =>
 			<ResultsHandlerSection>
 				<SortTitle>Sort By</SortTitle>
 				<StyledFormControl>
-					<StyledSelect value={sortValue} onChange={handleChange}>
+					<StyledSelect value={sortValue} onChange={handleSortingChange}>
 						{sort.map((item) => (
 							<MenuItem key={item} value={item}>
-								{item}
+								{item === 'release_date' ? 'Release Date' : 'Rating'}
 							</MenuItem>
 						))}
 					</StyledSelect>
