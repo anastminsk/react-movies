@@ -1,9 +1,11 @@
 import * as ACTIONS from './actionTypes';
 
+const MOVIES_URL = 'http://localhost:4000/movies';
+
 export const fetchMovies = () => (dispatch) => {
 	dispatch(fetchMoviesStart());
 
-	fetch('http://localhost:4000/movies')
+	fetch(MOVIES_URL)
 		.then((res) => res.json())
 		.then((result) => dispatch(fetchMoviesSuccess(result?.data)))
 		.catch((e) => dispatch(fetchMoviesError(e)));
@@ -25,7 +27,7 @@ export const fetchMoviesError = (error) => ({
 
 export const fetchMovieById = (movieId) => (dispatch) => {
 	dispatch(fetchMovieStart());
-	fetch(`http://localhost:4000/movies/${movieId}`)
+	fetch(`${MOVIES_URL}/${movieId}`)
 		.then((res) => res.json())
 		.then((result) => dispatch(fetchMovieSuccess(result)))
 		.catch((e) => dispatch(fetchMovieError(e)));
@@ -47,7 +49,7 @@ export const fetchMovieError = (error) => ({
 
 export const createMovie = (data) => (dispatch) => {
 	dispatch(createMovieStart());
-	fetch(`http://localhost:4000/movies`, {
+	fetch(MOVIES_URL, {
 		method: 'POST',
 		body: JSON.stringify(data),
 		headers: {
@@ -75,7 +77,7 @@ export const createMovieError = (error) => ({
 
 export const editMovie = (data) => (dispatch) => {
 	dispatch(editMovieStart());
-	fetch(`http://localhost:4000/movies`, {
+	fetch(MOVIES_URL, {
 		method: 'PUT',
 		body: JSON.stringify(data),
 		headers: {
@@ -103,7 +105,7 @@ export const editMovieError = (error) => ({
 
 export const deleteMovieById = (movieId) => (dispatch) => {
 	dispatch(deleteMovieStart());
-	fetch(`http://localhost:4000/movies/${movieId}`, {
+	fetch(`${MOVIES_URL}/${movieId}`, {
 		method: 'DELETE',
 	})
 		.then(() => dispatch(deleteMovieSuccess(movieId)))
@@ -128,7 +130,7 @@ export const filterMovies = (filter) => (dispatch, getState) => {
 	const filterParams = filter && filter === 'All' ? '' : `filter=${filter}`;
 	const sortParams = `sortOrder=desc&sortBy=${getState()?.movies?.sorting}`;
 	dispatch(filterMoviesStart());
-	fetch(`http://localhost:4000/movies?${filterParams}&${sortParams}`)
+	fetch(`${MOVIES_URL}?${filterParams}&${sortParams}`)
 		.then((res) => res.json())
 		.then((result) => dispatch(filterMoviesSuccess(result?.data, filter)))
 		.catch((e) => dispatch(filterMoviesError(e)));
@@ -156,7 +158,7 @@ export const sortMovies = (sorting) => (dispatch, getState) => {
 			? ''
 			: `filter=${getState()?.movies?.filter}`;
 	dispatch(sortMoviesStart());
-	fetch(`http://localhost:4000/movies?${sortParams}&${filterParams}`)
+	fetch(`${MOVIES_URL}?${sortParams}&${filterParams}`)
 		.then((res) => res.json())
 		.then((result) => dispatch(sortMoviesSuccess(result?.data, sorting)))
 		.catch((e) => dispatch(sortMoviesError(e)));
