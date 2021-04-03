@@ -1,39 +1,57 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { movies } from '../MainContent/model';
+import { connect } from 'react-redux';
+import { fetchMovieById } from '../../redux/actions';
 import {
 	MovieDetailsImage,
 	MovieDetailsTitleBlock,
 	MovieDetailsTitle,
 	MovieDetailsRating,
-	MovieDetailsGenre,
+	MovieDetailsTagline,
 	MovieDetailsReleaseDate,
 	MovieDetailsDuration,
 	MovieDetailsOverview,
 } from './styled.movie-details';
 
-const MovieDetailsComponent = ({ id, className }) => {
-	const movie = movies.find((movie) => movie.id === id);
+const MovieDetailsComponent = ({
+	id,
+	currentMovie,
+	fetchMovieById,
+	className,
+}) => {
+	useEffect(() => fetchMovieById(id), [id]);
+
 	return (
-		<section className={className}>
-			<MovieDetailsImage src={movie.image} alt="movie-image" />
-			<div>
-				<MovieDetailsTitleBlock>
-					<MovieDetailsTitle>{movie.title}</MovieDetailsTitle>
-					<MovieDetailsRating>{movie.rating}</MovieDetailsRating>
-				</MovieDetailsTitleBlock>
-				<MovieDetailsGenre>{movie.genre}</MovieDetailsGenre>
-				<MovieDetailsReleaseDate>
-					{movie.releaseDate.slice(0, 4)}
-				</MovieDetailsReleaseDate>
-				<MovieDetailsDuration>
-					{movie.runTime} min
-				</MovieDetailsDuration>
-				<MovieDetailsOverview>
-					{movie.overview}
-				</MovieDetailsOverview>
-			</div>
-		</section>
+		currentMovie && (
+			<section className={className}>
+				<MovieDetailsImage
+					src={currentMovie.poster_path}
+					alt="movie-image"
+				/>
+				<div>
+					<MovieDetailsTitleBlock>
+						<MovieDetailsTitle>
+							{currentMovie.title}
+						</MovieDetailsTitle>
+						<MovieDetailsRating>
+							{currentMovie.vote_average}
+						</MovieDetailsRating>
+					</MovieDetailsTitleBlock>
+					<MovieDetailsTagline>
+						{currentMovie.tagline}
+					</MovieDetailsTagline>
+					<MovieDetailsReleaseDate>
+						{currentMovie.release_date.slice(0, 4)}
+					</MovieDetailsReleaseDate>
+					<MovieDetailsDuration>
+						{currentMovie.runtime} min
+					</MovieDetailsDuration>
+					<MovieDetailsOverview>
+						{currentMovie.overview}
+					</MovieDetailsOverview>
+				</div>
+			</section>
+		)
 	);
 };
 
@@ -46,4 +64,12 @@ const MovieDetails = styled(MovieDetailsComponent)`
 	padding: 20px 40px;
 `;
 
-export default MovieDetails;
+const mapStateToProps = (state) => ({
+	currentMovie: state.movies.currentMovie,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	fetchMovieById: (id) => dispatch(fetchMovieById(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MovieDetails);

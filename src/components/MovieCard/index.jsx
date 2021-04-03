@@ -1,4 +1,9 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import {
+	editMovie,
+	deleteMovieById,
+} from '../../redux/actions';
 import PropTypes from 'prop-types';
 import MovieMenu from '../MovieMenu';
 import Modal from '../Modal';
@@ -19,18 +24,16 @@ import {
 } from './styled.movie-card';
 
 const MovieCard = (props) => {
-	const { id, title, genre, releaseDate, image, onMovieCardClick } = props;
+	const { id, title, genres, release_date, poster_path, onMovieCardClick, editMovie, deleteMovieById } = props;
 	const [isEditModalVisible, setIsEditModalVisible] = useState(false);
 	const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
 
-	const editModalHandler = (e) => {
-		e.preventDefault();
+	const editModalHandler = () => {
 		setIsEditModalVisible(!isEditModalVisible);
 	};
 
-	const deleteModalHandler = (e) => {
-		e.preventDefault();
+	const deleteModalHandler = () => {
 		setIsDeleteModalVisible(!isDeleteModalVisible);
 	};
 
@@ -42,21 +45,31 @@ const MovieCard = (props) => {
 		setAnchorEl(null);
 	};
 
-	const onEditMenuItemClick = (e) => {
-		editModalHandler(e);
+	const onEditMenuItemClick = () => {
+		editModalHandler();
 		menuHandleClose();
 	};
 
-	const onDeleteMenuItemClick = (e) => {
-		deleteModalHandler(e);
+	const onDeleteMenuItemClick = () => {
+		deleteModalHandler();
 		menuHandleClose();
 	};
+
+	const modalSubmitHandler = (data) => {
+		editMovie(data);
+		editModalHandler();
+	}
+
+	const deleteMovieHandler = () => {
+		deleteMovieById(id);
+		deleteModalHandler();
+	}
 
 	return (
 		<MovieCardContainer>
 			<MovieImageSection>
 				<MovieImage
-					src={image}
+					src={poster_path}
 					alt="movie-image"
 					onClick={() => {
 						onMovieCardClick(id);
@@ -94,9 +107,9 @@ const MovieCard = (props) => {
 			<MovieInfoSection>
 				<div>
 					<MovieTitle>{title}</MovieTitle>
-					<MovieGenre>{genre}</MovieGenre>
+					<MovieGenre>{genres.join(', ')}</MovieGenre>
 				</div>
-				<MovieDate>{releaseDate.slice(0, 4)}</MovieDate>
+				<MovieDate>{release_date.slice(0, 4)}</MovieDate>
 			</MovieInfoSection>
 			<Modal
 				showModal={isEditModalVisible}
@@ -105,8 +118,9 @@ const MovieCard = (props) => {
 			>
 				<ModalAddEditContent
 					closeModal={editModalHandler}
-					formData={props}
+					onModalSubmit={modalSubmitHandler}
 					editableMode
+					formData={props}
 				/>
 			</Modal>
 			<Modal
@@ -114,35 +128,38 @@ const MovieCard = (props) => {
 				closeModal={deleteModalHandler}
 				title={'DELETE MOVIE'}
 			>
-				<ModalDeleteContent closeModal={deleteModalHandler} />
+				<ModalDeleteContent
+					onDeleteMovie={deleteMovieHandler}
+				/>
 			</Modal>
 		</MovieCardContainer>
 	);
 };
 
 MovieCard.propTypes = {
-	id: PropTypes.string.isRequired,
+	id: PropTypes.number.isRequired,
 	title: PropTypes.string.isRequired,
-	genre: PropTypes.oneOf([
-		'Comedy',
-		'Documentary',
-		'Horror',
-		'Crime',
-		'Action',
-		'Drama',
-	]).isRequired,
+	genres: PropTypes.arrayOf(PropTypes.string).isRequired,
+	release_date: PropTypes.string.isRequired,
+	poster_path: PropTypes.string.isRequired,
 	overview: PropTypes.string.isRequired,
-	url: PropTypes.string.isRequired,
-	runTime: PropTypes.number.isRequired,
-	releaseDate: PropTypes.string.isRequired,
-	image: PropTypes.string.isRequired,
+	runtime: PropTypes.number.isRequired,
+	revenue: PropTypes.number,
+	budget: PropTypes.number,
+	tagline: PropTypes.string,
+	vote_average: PropTypes.number,
+	vote_count: PropTypes.number,
 };
 
 MovieCard.defaultProps = {
-	genre: 'Comedy',
 	title: 'Just a Perfect Movie',
+	genres: ['Comedy'],
 	overview: 'The Perfect Movie Overview',
-	url: 'https://www.netflix.com/',
 };
 
-export default MovieCard;
+const mapDispatchToProps = (dispatch) => ({
+	editMovie: (data) => dispatch(editMovie(data)),
+	deleteMovieById: (id) => dispatch(deleteMovieById(id)),
+});
+
+export default connect(null, mapDispatchToProps)(MovieCard);

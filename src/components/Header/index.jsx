@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 import Logo from '../Logo';
 import Modal from '../Modal';
 import HeaderSearchBlock from '../HeaderSearchBlock';
@@ -8,14 +9,23 @@ import MovieDetails from '../MovieDetails';
 import AddIcon from '@material-ui/icons/Add';
 import headerBackground from '../../assets/images/header-bg.png';
 import { HeaderTop, HeaderAddButton, StyledSearchIcon } from './styled.header';
+import { createMovie } from '../../redux/actions';
 
-const HeaderComponent = ({ movieDetailsId, className }) => {
+const HeaderComponent = ({ movieDetailsId, className, createMovie }) => {
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [isMovieDetailsVisible, setIsMovieDetailsVisible] = useState(false);
 
-	const modalHandler = (e) => {
-		e.preventDefault();
+	const handleModalVisibility = () => {
 		setIsModalVisible(!isModalVisible);
+	};
+
+	const handleModalSubmit = (data) => {
+		createMovie(data);
+		handleModalVisibility();
+	}
+
+	const handleSearchIconClick = () => {
+		setIsMovieDetailsVisible(false);
 	};
 
 	useEffect(
@@ -25,10 +35,6 @@ const HeaderComponent = ({ movieDetailsId, className }) => {
 				: setIsMovieDetailsVisible(false),
 		[movieDetailsId]
 	);
-
-	const handleSearchIconClick = () => {
-		setIsMovieDetailsVisible(false);
-	};
 
 	return (
 		<header className={className}>
@@ -40,7 +46,7 @@ const HeaderComponent = ({ movieDetailsId, className }) => {
 					<HeaderAddButton
 						variant="contained"
 						startIcon={<AddIcon />}
-						onClick={modalHandler}
+						onClick={handleModalVisibility}
 					>
 						Add movie
 					</HeaderAddButton>
@@ -53,11 +59,12 @@ const HeaderComponent = ({ movieDetailsId, className }) => {
 			)}
 			<Modal
 				showModal={isModalVisible}
-				closeModal={modalHandler}
+				closeModal={handleModalVisibility}
 				title={'ADD MOVIE'}
 			>
 				<ModalAddEditContent
-					closeModal={modalHandler}
+					closeModal={handleModalVisibility}
+					onModalSubmit={handleModalSubmit}
 					editableMode={false}
 				/>
 			</Modal>
@@ -76,4 +83,8 @@ const Header = styled(HeaderComponent)`
 	box-shadow: 50px 150px 100px #232323 inset;
 `;
 
-export default Header;
+const mapDispatchToProps = (dispatch) => ({
+	createMovie: (data) => dispatch(createMovie(data)),
+});
+
+export default connect(null, mapDispatchToProps)(Header);
