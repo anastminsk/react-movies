@@ -29,17 +29,17 @@ const initialFormData = {
 	vote_average: 0,
 };
 
-const validationSchema = yup.object({
+const validationSchema = yup.object().shape({
 	title: yup.string().required('Title is a required field'),
-	genres: yup
-		.array()
-		.min(1, 'Minimum one element is required')
-		.required('Genres is a required field'),
+	genres: yup.array().min(1).required('Genres is a required field'),
 	overview: yup.string().required('Overview is a required field'),
 	poster_path: yup
 		.string()
-		.url('Movie URL must be valid')
-		.required('Movie URL is a required field'),
+		.matches(
+			/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm,
+			'Poster path must be valid!'
+		)
+		.required('Poster path is a required field'),
 	runtime: yup.number().min(0).required('Runtime is a required field'),
 	release_date: yup.string().required('Release date is a required field'),
 	tagline: yup.string().required('Tagline is a required field'),
@@ -61,7 +61,6 @@ const ModalAddEditContent = ({
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
 			onModalSubmit({
-				id: formData.id,
 				...values,
 				runtime: +values.runtime,
 				vote_average: +values.vote_average,
@@ -85,6 +84,8 @@ const ModalAddEditContent = ({
 					value={formik.values.title}
 					fullWidth
 					onChange={formik.handleChange}
+					error={formik.touched.title && Boolean(formik.errors.title)}
+					helperText={formik.touched.title && formik.errors.title}
 				/>
 				<StyledTextField
 					type="date"
@@ -96,6 +97,8 @@ const ModalAddEditContent = ({
 						shrink: true,
 					}}
 					onChange={formik.handleChange}
+					error={formik.touched.release_date && Boolean(formik.errors.release_date)}
+					helperText={formik.touched.release_date && formik.errors.release_date}
 				/>
 				<StyledTextField
 					label="Poster path"
@@ -103,6 +106,8 @@ const ModalAddEditContent = ({
 					value={formik.values.poster_path}
 					fullWidth
 					onChange={formik.handleChange}
+					error={formik.touched.poster_path && Boolean(formik.errors.poster_path)}
+					helperText={formik.touched.poster_path && formik.errors.poster_path}
 				/>
 				<StyledFormControl fullWidth>
 					<InputLabel id="genres-label">Genres</InputLabel>
@@ -117,11 +122,7 @@ const ModalAddEditContent = ({
 					>
 						{GENRES_OPTIONS.map((item) => (
 							<MenuItem key={item} value={item}>
-								<Checkbox
-									checked={
-										formik.values.genres.indexOf(item) > -1
-									}
-								/>
+								<Checkbox checked={formik.values.genres.indexOf(item) > -1} />
 								<ListItemText primary={item} />
 							</MenuItem>
 						))}
@@ -133,6 +134,8 @@ const ModalAddEditContent = ({
 					value={formik.values.overview}
 					fullWidth
 					onChange={formik.handleChange}
+					error={formik.touched.overview && Boolean(formik.errors.overview)}
+					helperText={formik.touched.overview && formik.errors.overview}
 				/>
 				<StyledTextField
 					label="Runtime"
@@ -140,6 +143,8 @@ const ModalAddEditContent = ({
 					value={formik.values.runtime}
 					fullWidth
 					onChange={formik.handleChange}
+					error={formik.touched.runtime && Boolean(formik.errors.runtime)}
+					helperText={formik.touched.runtime && formik.errors.runtime}
 				/>
 				<StyledTextField
 					label="Tagline"
@@ -147,6 +152,8 @@ const ModalAddEditContent = ({
 					value={formik.values.tagline}
 					fullWidth
 					onChange={formik.handleChange}
+					error={formik.touched.tagline && Boolean(formik.errors.tagline)}
+					helperText={formik.touched.tagline && formik.errors.tagline}
 				/>
 				<StyledTextField
 					label="Vote average"
@@ -154,6 +161,8 @@ const ModalAddEditContent = ({
 					value={formik.values.vote_average}
 					fullWidth
 					onChange={formik.handleChange}
+					error={formik.touched.vote_average && Boolean(formik.errors.vote_average)}
+					helperText={formik.touched.vote_average && formik.errors.vote_average}
 				/>
 			</Fragment>
 			<ButtonsWrapper>
