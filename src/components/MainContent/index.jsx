@@ -13,7 +13,7 @@ import {
 const filters = ['All', 'Documentary', 'Comedy', 'Horror', 'Crime'];
 const sort = ['release_date', 'rating'];
 
-const MainContent = ({ movies, sorting, fetchMovies, filterMovies, sortMovies, onMovieCardClick }) => {
+const MainContent = ({ movies, sorting, fetchMovies, filterMovies, sortMovies }) => {
 	useEffect(() => fetchMovies(), []);
 
 	return (
@@ -32,10 +32,7 @@ const MainContent = ({ movies, sorting, fetchMovies, filterMovies, sortMovies, o
 					</MoviesResultsNumber>
 					<span>movies found</span>
 				</MoviesResults>
-				<MoviesList
-					movies={movies}
-					onMovieCardClick={onMovieCardClick}
-				/>
+				<MoviesList movies={movies} />
 			</ErrorBoundary>
 		</MainContentWrapper>
 	);

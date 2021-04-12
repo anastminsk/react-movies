@@ -1,25 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
 import MovieCard from '../MovieCard';
+import NoMovieFound from '../NoMovieFound';
 
-const MoviesListComponent = ({ movies, onMovieCardClick, className }) => {
+const MoviesListComponent = ({ movies, className }) => {
 	return (
 		<div className={className}>
-			{movies.map((movie) => (
-				<MovieCard
-					key={movie.id}
-					id={movie.id}
-					title={movie.title}
-					genres={movie.genres}
-					overview={movie.overview}
-					runtime={movie.runtime}
-					release_date={movie.release_date}
-					poster_path={movie.poster_path}
-					tagline={movie.tagline}
-					vote_average={movie.vote_average}
-					onMovieCardClick={onMovieCardClick}
-				/>
-			))}
+			{movies?.length ? (
+				movies.map((movie) => (
+					<MovieCard
+						key={movie.id}
+						id={movie.id}
+						title={movie.title}
+						genres={movie.genres}
+						overview={movie.overview}
+						runtime={movie.runtime}
+						release_date={movie.release_date}
+						poster_path={movie.poster_path}
+						tagline={movie.tagline}
+						vote_average={movie.vote_average}
+					/>
+				))
+			) : (
+				<NoMovieFound />
+			)}
 		</div>
 	);
 };
