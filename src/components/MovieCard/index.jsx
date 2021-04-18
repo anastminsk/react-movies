@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import {
 	editMovie,
 	deleteMovieById,
@@ -24,10 +25,11 @@ import {
 } from './styled.movie-card';
 
 const MovieCard = (props) => {
-	const { id, title, genres, release_date, poster_path, onMovieCardClick, editMovie, deleteMovieById } = props;
+	const { id, title, genres, release_date, poster_path, editMovie, deleteMovieById } = props;
 	const [isEditModalVisible, setIsEditModalVisible] = useState(false);
 	const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
 	const [anchorEl, setAnchorEl] = React.useState(null);
+	let history = useHistory();
 
 	const editModalHandler = () => {
 		setIsEditModalVisible(!isEditModalVisible);
@@ -71,9 +73,7 @@ const MovieCard = (props) => {
 				<MovieImage
 					src={poster_path}
 					alt="movie-image"
-					onClick={() => {
-						onMovieCardClick(id);
-					}}
+					onClick={() => history.push(`/movie/${id}`)}
 				/>
 				<MovieMenu>
 					<StyledIconButton

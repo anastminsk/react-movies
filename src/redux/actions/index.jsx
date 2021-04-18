@@ -4,7 +4,6 @@ const MOVIES_URL = 'http://localhost:4000/movies';
 
 export const fetchMovies = () => (dispatch) => {
 	dispatch(fetchMoviesStart());
-
 	fetch(MOVIES_URL)
 		.then((res) => res.json())
 		.then((result) => dispatch(fetchMoviesSuccess(result?.data)))
@@ -127,10 +126,16 @@ export const deleteMovieError = (error) => ({
 });
 
 export const filterMovies = (filter) => (dispatch, getState) => {
-	const filterParams = filter && filter === 'All' ? '' : `filter=${filter}`;
-	const sortParams = `sortOrder=desc&sortBy=${getState()?.movies?.sorting}`;
+	const filterParams = filter && filter === 'All' ? null : `filter=${filter}`;
+	const sortParams = `sortOrder=desc&sortBy=${getState().movies.sorting}`;
+	const searchParams = getState().movies.search
+		? `search=${getState().movies.search}&searchBy=title`
+		: null;
+	const paramsString = [searchParams, filterParams, sortParams]
+		.filter((el) => el !== null)
+		.join('&');
 	dispatch(filterMoviesStart());
-	fetch(`${MOVIES_URL}?${filterParams}&${sortParams}`)
+	fetch(`${MOVIES_URL}?${paramsString}`)
 		.then((res) => res.json())
 		.then((result) => dispatch(filterMoviesSuccess(result?.data, filter)))
 		.catch((e) => dispatch(filterMoviesError(e)));
@@ -154,11 +159,17 @@ export const filterMoviesError = (error) => ({
 export const sortMovies = (sorting) => (dispatch, getState) => {
 	const sortParams = `sortOrder=desc&sortBy=${sorting}`;
 	const filterParams =
-		getState()?.movies?.filter === 'All'
-			? ''
-			: `filter=${getState()?.movies?.filter}`;
+		getState().movies.filter === 'All'
+			? null
+			: `filter=${getState().movies.filter}`;
+	const searchParams = getState().movies.search
+		? `search=${getState().movies.search}&searchBy=title`
+		: null;
+	const paramsString = [searchParams, filterParams, sortParams]
+		.filter((el) => el !== null)
+		.join('&');
 	dispatch(sortMoviesStart());
-	fetch(`${MOVIES_URL}?${sortParams}&${filterParams}`)
+	fetch(`${MOVIES_URL}?${paramsString}`)
 		.then((res) => res.json())
 		.then((result) => dispatch(sortMoviesSuccess(result?.data, sorting)))
 		.catch((e) => dispatch(sortMoviesError(e)));
@@ -176,5 +187,37 @@ export const sortMoviesSuccess = (movies, sorting) => ({
 
 export const sortMoviesError = (error) => ({
 	type: ACTIONS.SORT_MOVIES_ERROR,
+	error,
+});
+
+export const searchMovie = (search) => (dispatch, getState) => {
+	const searchParams = search ? `search=${search}&searchBy=title` : null;
+	const sortParams = `sortOrder=desc&sortBy=${getState().movies.sorting}`;
+	const filterParams =
+		getState().movies.filter === `All`
+			? null
+			: `filter=${getState().movies.filter}`;
+	const paramsString = [searchParams, filterParams, sortParams]
+		.filter((el) => el !== null)
+		.join('&');
+	dispatch(searchMovieStart());
+	fetch(`${MOVIES_URL}?${paramsString}`)
+		.then((res) => res.json())
+		.then((result) => dispatch(searchMovieSuccess(result?.data, search)))
+		.catch((e) => dispatch(searchMovieError(e)));
+};
+
+export const searchMovieStart = () => ({
+	type: ACTIONS.SEARCH_MOVIE_START,
+});
+
+export const searchMovieSuccess = (movies, search) => ({
+	type: ACTIONS.SEARCH_MOVIE_SUCCESS,
+	movies,
+	search,
+});
+
+export const searchMovieError = (error) => ({
+	type: ACTIONS.SEARCH_MOVIE_ERROR,
 	error,
 });
