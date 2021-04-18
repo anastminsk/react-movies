@@ -74,6 +74,8 @@
 // 	},
 // ];
 
+export const FILTERS = ['All', 'Documentary', 'Comedy', 'Horror', 'Crime'];
+export const SORT = ['release_date', 'rating'];
 export const GENRES_OPTIONS = [
 	'Documentary',
 	'Animation',
