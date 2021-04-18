@@ -1,6 +1,11 @@
 import * as ACTIONS from './actionTypes';
-
-const MOVIES_URL = 'http://localhost:4000/movies';
+import {
+	MOVIES_URL,
+	getSearchParams,
+	getFilterParams,
+	getSortParams,
+	getMoviesUrlWithParams
+} from './actionHelpers';
 
 export const fetchMovies = () => (dispatch) => {
 	dispatch(fetchMoviesStart());
@@ -126,16 +131,11 @@ export const deleteMovieError = (error) => ({
 });
 
 export const filterMovies = (filter) => (dispatch, getState) => {
+	const searchParams = getSearchParams(getState);
 	const filterParams = filter && filter === 'All' ? null : `filter=${filter}`;
-	const sortParams = `sortOrder=desc&sortBy=${getState().movies.sorting}`;
-	const searchParams = getState().movies.search
-		? `search=${getState().movies.search}&searchBy=title`
-		: null;
-	const paramsString = [searchParams, filterParams, sortParams]
-		.filter((el) => el !== null)
-		.join('&');
+	const sortParams = getSortParams(getState);
 	dispatch(filterMoviesStart());
-	fetch(`${MOVIES_URL}?${paramsString}`)
+	fetch(getMoviesUrlWithParams(searchParams, filterParams, sortParams))
 		.then((res) => res.json())
 		.then((result) => dispatch(filterMoviesSuccess(result?.data, filter)))
 		.catch((e) => dispatch(filterMoviesError(e)));
@@ -157,19 +157,11 @@ export const filterMoviesError = (error) => ({
 });
 
 export const sortMovies = (sorting) => (dispatch, getState) => {
+	const searchParams = getSearchParams(getState);
+	const filterParams = getFilterParams(getState);
 	const sortParams = `sortOrder=desc&sortBy=${sorting}`;
-	const filterParams =
-		getState().movies.filter === 'All'
-			? null
-			: `filter=${getState().movies.filter}`;
-	const searchParams = getState().movies.search
-		? `search=${getState().movies.search}&searchBy=title`
-		: null;
-	const paramsString = [searchParams, filterParams, sortParams]
-		.filter((el) => el !== null)
-		.join('&');
 	dispatch(sortMoviesStart());
-	fetch(`${MOVIES_URL}?${paramsString}`)
+	fetch(getMoviesUrlWithParams(searchParams, filterParams, sortParams))
 		.then((res) => res.json())
 		.then((result) => dispatch(sortMoviesSuccess(result?.data, sorting)))
 		.catch((e) => dispatch(sortMoviesError(e)));
@@ -192,16 +184,10 @@ export const sortMoviesError = (error) => ({
 
 export const searchMovie = (search) => (dispatch, getState) => {
 	const searchParams = search ? `search=${search}&searchBy=title` : null;
-	const sortParams = `sortOrder=desc&sortBy=${getState().movies.sorting}`;
-	const filterParams =
-		getState().movies.filter === `All`
-			? null
-			: `filter=${getState().movies.filter}`;
-	const paramsString = [searchParams, filterParams, sortParams]
-		.filter((el) => el !== null)
-		.join('&');
+	const filterParams = getFilterParams(getState);
+	const sortParams = getSortParams(getState);
 	dispatch(searchMovieStart());
-	fetch(`${MOVIES_URL}?${paramsString}`)
+	fetch(getMoviesUrlWithParams(searchParams, filterParams, sortParams))
 		.then((res) => res.json())
 		.then((result) => dispatch(searchMovieSuccess(result?.data, search)))
 		.catch((e) => dispatch(searchMovieError(e)));
