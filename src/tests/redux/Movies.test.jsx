@@ -2,7 +2,7 @@ import reducer from '../../redux/reducers/movies';
 import * as ACTIONS from '../../redux/actions/actionTypes';
 
 describe('movies reducer', () => {
-	const initialState = {
+	const mockInitialState = {
 		movies: [],
 		error: null,
 		currentMovie: null,
@@ -11,7 +11,7 @@ describe('movies reducer', () => {
 		search: null,
 	};
 
-	const movies = [
+	const mockMovies = [
 		{
 			budget: 0,
 			genres: ['Action', 'Comedy', 'Science Fiction'],
@@ -62,8 +62,8 @@ describe('movies reducer', () => {
 		},
 	];
 
-	const currentMovie = movies[0];
-	const newMovie = {
+	const mockCurrentMovie = mockMovies[0];
+	const mockNewMovie = {
 		budget: 0,
 		genres: ['Comedy'],
 		id: 437557,
@@ -80,7 +80,7 @@ describe('movies reducer', () => {
 		vote_count: 13,
 	};
 
-	const editedMovie = {
+	const mockEditedMovie = {
 		budget: 0,
 		genres: ['Comedy', 'Drama'],
 		id: 443009,
@@ -98,118 +98,118 @@ describe('movies reducer', () => {
 	};
 
 	it('should return the initial state', () => {
-		expect(reducer(undefined, {})).toEqual(initialState);
+		expect(reducer(undefined, {})).toEqual(mockInitialState);
 	});
 
 	it('should handle FETCH_MOVIES_START', () => {
 		expect(
-			reducer(initialState, {
+			reducer(mockInitialState, {
 				type: ACTIONS.FETCH_MOVIES_START,
 			})
 		).toEqual({
-			...initialState,
+			...mockInitialState,
 		});
 	});
 
 	it('should handle FETCH_MOVIES_SUCCESS', () => {
 		expect(
-			reducer(initialState, {
+			reducer(mockInitialState, {
 				type: ACTIONS.FETCH_MOVIES_SUCCESS,
-				movies,
+				movies: mockMovies,
 			})
 		).toEqual({
-			...initialState,
-			movies,
+			...mockInitialState,
+			movies: mockMovies,
 		});
 	});
 
 	it('should handle FETCH_MOVIES_ERROR', () => {
 		expect(
-			reducer(initialState, {
+			reducer(mockInitialState, {
 				type: ACTIONS.FETCH_MOVIES_ERROR,
 				error: 'some error',
 			})
 		).toEqual({
-			...initialState,
+			...mockInitialState,
 			error: 'some error',
 		});
 	});
 
 	it('should handle FETCH_MOVIE_START', () => {
 		expect(
-			reducer(initialState, {
+			reducer(mockInitialState, {
 				type: ACTIONS.FETCH_MOVIE_START,
 			})
 		).toEqual({
-			...initialState,
+			...mockInitialState,
 		});
 	});
 
 	it('should handle FETCH_MOVIE_SUCCESS', () => {
 		expect(
-			reducer(initialState, {
+			reducer(mockInitialState, {
 				type: ACTIONS.FETCH_MOVIE_SUCCESS,
-				currentMovie,
+				currentMovie: mockCurrentMovie,
 			})
 		).toEqual({
-			...initialState,
-			currentMovie,
+			...mockInitialState,
+			currentMovie: mockCurrentMovie,
 		});
 	});
 
 	it('should handle FETCH_MOVIE_ERROR', () => {
 		expect(
-			reducer(initialState, {
+			reducer(mockInitialState, {
 				type: ACTIONS.FETCH_MOVIE_ERROR,
 				error: 'some error',
 			})
 		).toEqual({
-			...initialState,
+			...mockInitialState,
 			error: 'some error',
 		});
 	});
 
 	it('should handle CREATE_MOVIE_START', () => {
 		expect(
-			reducer(initialState, {
+			reducer(mockInitialState, {
 				type: ACTIONS.CREATE_MOVIE_START,
 			})
 		).toEqual({
-			...initialState,
+			...mockInitialState,
 		});
 	});
 
 	it('should handle CREATE_MOVIE_SUCCESS', () => {
 		expect(
-			reducer(initialState, {
+			reducer(mockInitialState, {
 				type: ACTIONS.CREATE_MOVIE_SUCCESS,
-				currentMovie: newMovie,
+				currentMovie: mockNewMovie,
 			})
 		).toEqual({
-			...initialState,
-			movies: [...initialState.movies, newMovie],
+			...mockInitialState,
+			movies: [...mockInitialState.movies, mockNewMovie],
 		});
 	});
 
 	it('should handle CREATE_MOVIE_ERROR', () => {
 		expect(
-			reducer(initialState, {
+			reducer(mockInitialState, {
 				type: ACTIONS.CREATE_MOVIE_ERROR,
 				error: 'some error',
 			})
 		).toEqual({
-			...initialState,
+			...mockInitialState,
 			error: 'some error',
 		});
 	});
 
 	it('should handle EDIT_MOVIE_START', () => {
 		expect(
-			reducer(initialState, {
+			reducer(mockInitialState, {
 				type: ACTIONS.EDIT_MOVIE_START,
 			})
 		).toEqual({
-			...initialState,
+			...mockInitialState,
 		});
 	});
 
@@ -217,41 +217,41 @@ describe('movies reducer', () => {
 		expect(
 			reducer(
 				{
-					...initialState,
-					movies,
+					...mockInitialState,
+					movies: mockMovies,
 				},
 				{
 					type: ACTIONS.EDIT_MOVIE_SUCCESS,
-					movie: editedMovie,
+					movie: mockEditedMovie,
 				}
 			)
 		).toEqual({
-			...initialState,
-			movies: movies.map((el) =>
-				el.id === editedMovie.id ? editedMovie : el
+			...mockInitialState,
+			movies: mockMovies.map((el) =>
+				el.id === mockEditedMovie.id ? mockEditedMovie : el
 			),
 		});
 	});
 
 	it('should handle EDIT_MOVIE_ERROR', () => {
 		expect(
-			reducer(initialState, {
+			reducer(mockInitialState, {
 				type: ACTIONS.EDIT_MOVIE_ERROR,
 				error: 'some error',
 			})
 		).toEqual({
-			...initialState,
+			...mockInitialState,
 			error: 'some error',
 		});
 	});
 
 	it('should handle DELETE_MOVIE_START', () => {
 		expect(
-			reducer(initialState, {
+			reducer(mockInitialState, {
 				type: ACTIONS.DELETE_MOVIE_START,
 			})
 		).toEqual({
-			...initialState,
+			...mockInitialState,
 		});
 	});
 
@@ -259,8 +259,8 @@ describe('movies reducer', () => {
 		expect(
 			reducer(
 				{
-					...initialState,
-					movies,
+					...mockInitialState,
+					movies: mockMovies,
 				},
 				{
 					type: ACTIONS.DELETE_MOVIE_SUCCESS,
@@ -268,139 +268,139 @@ describe('movies reducer', () => {
 				}
 			)
 		).toEqual({
-			...initialState,
-			movies: movies.filter((el) => el.id !== 421044),
+			...mockInitialState,
+			movies: mockMovies.filter((el) => el.id !== 421044),
 		});
 	});
 
 	it('should handle DELETE_MOVIE_ERROR', () => {
 		expect(
-			reducer(initialState, {
+			reducer(mockInitialState, {
 				type: ACTIONS.DELETE_MOVIE_ERROR,
 				error: 'some error',
 			})
 		).toEqual({
-			...initialState,
+			...mockInitialState,
 			error: 'some error',
 		});
 	});
 
 	it('should handle FILTER_MOVIES_START', () => {
 		expect(
-			reducer(initialState, {
+			reducer(mockInitialState, {
 				type: ACTIONS.FILTER_MOVIES_START,
 			})
 		).toEqual({
-			...initialState,
+			...mockInitialState,
 		});
 	});
 
 	it('should handle FILTER_MOVIES_SUCCESS', () => {
 		expect(
 			reducer({
-				...initialState,
-				movies,
+				...mockInitialState,
+				movies: mockMovies,
 			},
 			{
 				type: ACTIONS.FILTER_MOVIES_SUCCESS,
-				movies,
+				movies: mockMovies,
 				filter: 'Comedy',
 			})
 		).toEqual({
-			...initialState,
+			...mockInitialState,
 			filter: 'Comedy',
-			movies: movies.filter((el) => el.genres.includes('Comedy')),
+			movies: mockMovies.filter((el) => el.genres.includes('Comedy')),
 		});
 	});
 
 	it('should handle FILTER_MOVIES_ERROR', () => {
 		expect(
-			reducer(initialState, {
+			reducer(mockInitialState, {
 				type: ACTIONS.FILTER_MOVIES_ERROR,
 				error: 'some error',
 			})
 		).toEqual({
-			...initialState,
+			...mockInitialState,
 			error: 'some error',
 		});
 	});
 
 	it('should handle SORT_MOVIES_START', () => {
 		expect(
-			reducer(initialState, {
+			reducer(mockInitialState, {
 				type: ACTIONS.SORT_MOVIES_START,
 			})
 		).toEqual({
-			...initialState,
+			...mockInitialState,
 		});
 	});
 
 	it('should handle SORT_MOVIES_SUCCESS', () => {
 		expect(
 			reducer({
-				...initialState,
-				movies,
+				...mockInitialState,
+				movies: mockMovies,
 			},
 			{
 				type: ACTIONS.SORT_MOVIES_SUCCESS,
-				movies,
+				movies: mockMovies,
 				sorting: 'rating',
 			})
 		).toEqual({
-			...initialState,
+			...mockInitialState,
 			sorting: 'rating',
-			movies: movies.sort((first, second) => first.vote_average - second.vote_average),
+			movies: mockMovies.sort((first, second) => first.vote_average - second.vote_average),
 		});
 	});
 
 	it('should handle SORT_MOVIES_ERROR', () => {
 		expect(
-			reducer(initialState, {
+			reducer(mockInitialState, {
 				type: ACTIONS.SORT_MOVIES_ERROR,
 				error: 'some error',
 			})
 		).toEqual({
-			...initialState,
+			...mockInitialState,
 			error: 'some error',
 		});
 	});
 
 	it('should handle SEARCH_MOVIE_START', () => {
 		expect(
-			reducer(initialState, {
+			reducer(mockInitialState, {
 				type: ACTIONS.SEARCH_MOVIE_START,
 			})
 		).toEqual({
-			...initialState,
+			...mockInitialState,
 		});
 	});
 
 	it('should handle SEARCH_MOVIE_SUCCESS', () => {
 		expect(
 			reducer({
-				...initialState,
-				movies,
+				...mockInitialState,
+				movies: mockMovies,
 			},
 			{
 				type: ACTIONS.SEARCH_MOVIE_SUCCESS,
-				movies,
+				movies: mockMovies,
 				search: 'car',
 			})
 		).toEqual({
-			...initialState,
+			...mockInitialState,
 			search: 'car',
-			movies: movies.filter((el) => el.title.matchAll(/car/g)),
+			movies: mockMovies.filter((el) => el.title.matchAll(/car/g)),
 		});
 	});
 
 	it('should handle SEARCH_MOVIE_ERROR', () => {
 		expect(
-			reducer(initialState, {
+			reducer(mockInitialState, {
 				type: ACTIONS.SEARCH_MOVIE_ERROR,
 				error: 'some error',
 			})
 		).toEqual({
-			...initialState,
+			...mockInitialState,
 			error: 'some error',
 		});
 	});
