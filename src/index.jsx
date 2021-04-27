@@ -1,16 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { createStore, applyMiddleware } from 'redux';
+import { hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-import rootReducer from './redux/reducers';
+import { BrowserRouter } from 'react-router-dom';
+import configureStore from './redux/configure-store';
 import App from './App';
 import './index.less';
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = configureStore(window.PRELOADED_STATE);
 
-ReactDOM.render(
-	<Provider store={store}>
+hydrate(
+	<Provider Router={BrowserRouter} store={store}>
 		<App />
 	</Provider>,
 	document.getElementById('root')
