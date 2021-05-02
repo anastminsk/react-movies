@@ -9,9 +9,7 @@ import {
 	MoviesResults,
 	MoviesResultsNumber,
 } from './styled.main-content';
-
-const filters = ['All', 'Documentary', 'Comedy', 'Horror', 'Crime'];
-const sort = ['release_date', 'rating'];
+import { FILTERS, SORT } from './model';
 
 const MainContent = ({ movies, sorting, fetchMovies, filterMovies, sortMovies }) => {
 	useEffect(() => fetchMovies(), []);
@@ -20,8 +18,8 @@ const MainContent = ({ movies, sorting, fetchMovies, filterMovies, sortMovies })
 		<MainContentWrapper>
 			<ErrorBoundary>
 				<ResultsHandler
-					filters={filters}
-					sort={sort}
+					filters={FILTERS}
+					sort={SORT}
 					sortValue={sorting}
 					onFilterChange={(filter) => filterMovies(filter)}
 					onSortingChange={(sortValue) => sortMovies(sortValue)}
