@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import MovieSearchHeader from './components/MovieSearchHeader';
 import MovieDetailsHeader from './components/MovieDetailsHeader';
@@ -12,24 +13,26 @@ const AppWrapper = styled.div`
 	margin: 0 auto;
 `;
 
-const App = () => {
+const App = ({ context, location, Router, store }) => {
 	return (
-		<BrowserRouter>
-			<AppWrapper>
-				<Switch>
-					<Route path={["/", "/search/:searchQuery"]} exact>
-						<MovieSearchHeader />
-						<MainContent />
-					</Route>
-					<Route path="/movie/:id">
-						<MovieDetailsHeader />
-						<MainContent />
-					</Route>
-					<Route path="*" component={ErrorPage} />
-				</Switch>
-				<Footer />
-			</AppWrapper>
-		</BrowserRouter>
+		<Provider store={store}>
+			<Router location={location} context={context}>
+				<AppWrapper>
+					<Switch>
+						<Route path={['/', '/search/:searchQuery']} exact>
+							<MovieSearchHeader />
+							<MainContent />
+						</Route>
+						<Route path="/movie/:id">
+							<MovieDetailsHeader />
+							<MainContent />
+						</Route>
+						<Route path="*" component={ErrorPage} />
+					</Switch>
+					<Footer />
+				</AppWrapper>
+			</Router>
+		</Provider>
 	);
 };
 
