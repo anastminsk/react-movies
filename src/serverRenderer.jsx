@@ -1,7 +1,7 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
-import configureStore from './redux/configure-store';
+import configureStore from './redux/configureStore';
 import App from './App';
 
 function renderHTML(html, preloadedState) {

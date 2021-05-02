@@ -1,16 +1,11 @@
 import React from 'react';
 import { hydrate } from 'react-dom';
-import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import configureStore from './redux/configure-store';
+import configureStore from './redux/configureStore';
 import App from './App';
 import './index.less';
 
 const store = configureStore(window.PRELOADED_STATE);
+const app = <App Router={BrowserRouter} store={store} />;
 
-hydrate(
-	<Provider Router={BrowserRouter} store={store}>
-		<App />
-	</Provider>,
-	document.getElementById('root')
-);
+hydrate(app, document.getElementById('root'));
