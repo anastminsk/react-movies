@@ -9,8 +9,8 @@ if (process.env.NODE_ENV === 'development') {
 	const compiler = webpack(webpackConfig);
 	app.use(webpackDevMiddleware(compiler));
 } else {
-	const serverRenderer = require('../public/js/serverRenderer').default;
-	app.use(express.static('public'));
+	const serverRenderer = require('../dist/js/serverRenderer').default;
+	app.use(express.static('dist'));
 	app.use(serverRenderer());
 }
 
