@@ -75,12 +75,14 @@ const ModalAddEditContent = ({
 					style={{ display: editableMode ? 'block' : 'none' }}
 					label="Movie ID"
 					name="movieID"
+					id="movieID"
 					value={movieID}
 					fullWidth
 				/>
 				<StyledTextField
 					label="Title"
 					name="title"
+					id="title"
 					value={formik.values.title}
 					fullWidth
 					onChange={formik.handleChange}
@@ -91,6 +93,7 @@ const ModalAddEditContent = ({
 					type="date"
 					label="Release date"
 					name="release_date"
+					id="release_date"
 					value={formik.values.release_date}
 					fullWidth
 					InputLabelProps={{
@@ -103,6 +106,7 @@ const ModalAddEditContent = ({
 				<StyledTextField
 					label="Poster path"
 					name="poster_path"
+					id="poster_path"
 					value={formik.values.poster_path}
 					fullWidth
 					onChange={formik.handleChange}
@@ -113,6 +117,7 @@ const ModalAddEditContent = ({
 					<InputLabel id="genres-label">Genres</InputLabel>
 					<Select
 						name="genres"
+						id="genres"
 						multiple
 						labelId="genres-label"
 						value={formik.values.genres}
@@ -131,6 +136,7 @@ const ModalAddEditContent = ({
 				<StyledTextField
 					label="Overview"
 					name="overview"
+					id="overview"
 					value={formik.values.overview}
 					fullWidth
 					onChange={formik.handleChange}
@@ -140,6 +146,7 @@ const ModalAddEditContent = ({
 				<StyledTextField
 					label="Runtime"
 					name="runtime"
+					id="runtime"
 					value={formik.values.runtime}
 					fullWidth
 					onChange={formik.handleChange}
@@ -149,6 +156,7 @@ const ModalAddEditContent = ({
 				<StyledTextField
 					label="Tagline"
 					name="tagline"
+					id="tagline"
 					value={formik.values.tagline}
 					fullWidth
 					onChange={formik.handleChange}
@@ -158,6 +166,7 @@ const ModalAddEditContent = ({
 				<StyledTextField
 					label="Vote average"
 					name="vote_average"
+					id="vote_average"
 					value={formik.values.vote_average}
 					fullWidth
 					onChange={formik.handleChange}
