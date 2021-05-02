@@ -10,11 +10,8 @@ function renderHTML(html, preloadedState) {
 	<html lang="en">
 
 	<head>
-		<meta charset="UTF-8">
+		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="icon" href="favicon.ico" type="image/icon">
-		<link rel="stylesheet"
-			href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
 		<title>React Server Side Rendering</title>
 	</head>
 
@@ -47,22 +44,20 @@ export default function serverRenderer() {
 			/>
 		);
 
-		store.runSaga().done.then(() => {
-			const htmlString = renderToString(renderRoot());
-
-			if (context.url) {
-				res.writeHead(302, {
-					Location: context.url,
-				});
-				res.end();
-				return;
-			}
-
-			const preloadedState = store.getState();
-
-			res.send(renderHTML(htmlString, preloadedState));
-		});
 		renderToString(renderRoot());
-		store.close();
+
+		// context.url will contain the URL to redirect to if a <Redirect> was used
+		if (context.url) {
+			res.writeHead(302, {
+				Location: context.url,
+			});
+			res.end();
+			return;
+		}
+
+		const htmlString = renderToString(renderRoot());
+		const preloadedState = store.getState();
+
+		res.send(renderHTML(htmlString, preloadedState));
 	};
 }
